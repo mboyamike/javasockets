@@ -13,6 +13,7 @@ import javax.swing.SwingUtilities;
  */
 public class ClientHome extends javax.swing.JFrame {
 
+    public static SocketClient client;
     /**
      * Creates new form ClientHome
      */
@@ -98,8 +99,8 @@ public class ClientHome extends javax.swing.JFrame {
         client.setOnReceive(data->{
             System.out.println(data);
         });
-        
-        client.startConnection();
+        this.client = client;
+        this.client.startConnection();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -136,6 +137,13 @@ public class ClientHome extends javax.swing.JFrame {
             }
         });
     }
+
+    @Override
+    public void dispose() {
+        client.stopConnection();
+        super.dispose(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

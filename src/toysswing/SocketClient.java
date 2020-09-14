@@ -13,6 +13,8 @@ public class SocketClient {
     Consumer<String> onConnect;
     Consumer<String> onSend;
     int port;
+    
+    int status = 1;
 
     Connection connection = new Connection();
 
@@ -64,8 +66,11 @@ public class SocketClient {
                 onConnect.accept("Successful");
                 
                 while(true) {
+                    
                     String received = in.readObject().toString();
                     onReceive.accept(received);
+                    status++;
+                    
                 }
                 
             } catch (IOException ex) {

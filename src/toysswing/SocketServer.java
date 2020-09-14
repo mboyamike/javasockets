@@ -16,7 +16,7 @@ public class SocketServer {
     Consumer<String> onSend;
 
     Connection connection = new Connection();
-    
+    int status = 1;
 
     public void setOnReceive(Consumer<String> onReceive) {
         this.onReceive = onReceive;
@@ -68,8 +68,16 @@ public class SocketServer {
                 out = new ObjectOutputStream(socket.getOutputStream());
                 ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
                 
-                message = "Please send toy information detail";
-                send(message);
+                
+                
+                if(status == 1) 
+                        send("Please send toy identification details");
+                    if(status == 2)
+                        send("Please send toy information details");
+                    if(status == 3)
+                        send("Please send manufacturer information details");
+                    if(status == 4)
+                        send("Please send thank you message");
                                         
                 while(true) {
                     String received = in.readObject().toString();
